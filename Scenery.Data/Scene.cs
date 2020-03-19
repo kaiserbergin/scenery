@@ -4,12 +4,9 @@ using System.Collections.Generic;
 
 namespace Scenery.Data
 {
-    public class Scene
+    public class Scene : BaseScenery
     {
-        public Guid Id { get; set; }
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public Colors Color { get; set; }
+        public int SequenceNumber { get; set; }
         public SceneFocus SceneFocus { get; set; }
         public List<EssentialElements> EssentialElements { get; set; }
         public List<ImportantElements> ImportantElements { get; set; }

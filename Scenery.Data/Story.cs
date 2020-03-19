@@ -1,15 +1,9 @@
-﻿using Scenery.Data.Enumerations;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Scenery.Data
 {
-    public class Story
+    public class Story : BaseScenery
     {
-        public Guid Id { get; set; }
-        public string Title { get; set; }
-        public string Description { get; set; }
-        public Colors Color { get; set; }
         public List<Act> Acts { get; set; }
     }
 }
