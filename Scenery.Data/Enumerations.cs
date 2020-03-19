@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace Scenery.Data
+namespace Scenery.Data.Enumerations
 {
     public enum EssentialElements
     {
@@ -57,5 +57,19 @@ namespace Scenery.Data
         GREEN,
         WHITE,
         BLACK
+    }
+
+    public enum SceneryTypes
+    {
+        SCENE,
+        CHAPTER,
+        ACT,
+        STORY
+    }
+
+    public enum LinkTypes
+    {
+        PARENT,
+        CHILD
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Scenery.Data.Enumerations;
+using System;
 using System.Collections.Generic;
 
 namespace Scenery.Data
