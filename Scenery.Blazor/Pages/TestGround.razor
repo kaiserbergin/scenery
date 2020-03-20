@@ -1,0 +1,189 @@
+﻿@page "/test-ground"
+
+<style>
+    .demo-mat-card {
+        max-width: 400px;
+    }
+
+    .demo-mat-card-content {
+        padding: 1rem;
+    }
+
+    .demo-mat-card-clean-margin {
+        margin: 0px;
+    }
+</style>
+
+<h3>TestGround</h3>
+
+<MatDivider></MatDivider>
+
+<h3>@_story.Title</h3>
+<p>
+    @_story.Description
+</p>
+
+<MatContentWrapper>
+    <div class="mat-layout-grid">
+        <div class="mat-layout-grid-inner">
+            @foreach (var act in _story.Acts)
+            {
+                <div class="mat-layout-grid-cell">
+                    <MatCard class="demo-mat-card">
+                        <MatCardContent>
+                            <div class="demo-mat-card-content">
+                                <MatHeadline6 Class="demo-mat-card-clean-margin">
+                                    @act.Title
+                                </MatHeadline6>
+                                <MatBody2 Class="demo-mat-card-content demo-mat-card-clean-margin">
+                                    @act.Description
+                                </MatBody2>
+                            </div>
+                        </MatCardContent>
+                        <MatCardActions>
+                            <MatButton OnClick="@(e => OnViewChaptersClicked(e, act.Id))">
+                                View Chapters
+                            </MatButton>
+                        </MatCardActions>
+                    </MatCard>
+                </div>
+            }
+            <div class="mat-layout-grid-cell">
+                <MatCard Class="demo-mat-card">
+                    <MatCardContent>
+                        <div class="demo-mat-card-content">
+                            <MatHeadline6 Class="demo-mat-card-clean-margin">
+                                &nbsp;
+                            </MatHeadline6>
+                            <MatBody2 Class="demo-mat-card-content demo-mat-card-clean-margin">
+                                &nbsp;
+                            </MatBody2>
+                        </div>
+                    </MatCardContent>
+                    <MatCardActionIcons>
+                        <MatIconButton Icon="add_circle"></MatIconButton>
+                    </MatCardActionIcons>
+                </MatCard>
+            </div>
+        </div>
+    </div>
+
+    @if (_selectedActId.HasValue)
+    {
+        var selectedAct = _story.Acts.Find(act => act.Id == _selectedActId.Value);
+
+        <div class="mat-layout-grid">
+            <div class="mat-layout-grid-inner">
+                @foreach (var chapter in selectedAct.Chapters)
+                {
+                    <div class="mat-layout-grid-cell">
+                        <MatCard class="demo-mat-card">
+                            <MatCardContent>
+                                <div class="demo-mat-card-content">
+                                    <MatHeadline6 Class="demo-mat-card-clean-margin">
+                                        @chapter.Title
+                                    </MatHeadline6>
+                                    <MatBody2 Class="demo-mat-card-content demo-mat-card-clean-margin">
+                                        @chapter.Description
+                                    </MatBody2>
+                                </div>
+                            </MatCardContent>
+                            <MatCardActions>
+                                <MatButton OnClick="@(e => OnViewScenesClicked(e, chapter.Id))">
+                                    View Scenes
+                                </MatButton>
+                            </MatCardActions>
+                        </MatCard>
+                    </div>
+                }
+                <div class="mat-layout-grid-cell">
+                    <MatCard Class="demo-mat-card">
+                        <MatCardContent>
+                            <div class="demo-mat-card-content">
+                                <MatHeadline6 Class="demo-mat-card-clean-margin">
+                                    &nbsp;
+                                </MatHeadline6>
+                                <MatBody2 Class="demo-mat-card-content demo-mat-card-clean-margin">
+                                    &nbsp;
+                                </MatBody2>
+                            </div>
+                        </MatCardContent>
+                        <MatCardActionIcons>
+                            <MatIconButton Icon="add_circle"></MatIconButton>
+                        </MatCardActionIcons>
+                    </MatCard>
+                </div>
+            </div>
+        </div>
+    }
+
+    @if (_selectedActId.HasValue && _selectedChapterId.HasValue)
+    {
+        var selectedChapter = _story.Acts.Find(act => act.Id == _selectedActId.Value)
+            .Chapters.Find(chapter => chapter.Id == _selectedChapterId.Value);
+        var selectedScenes = selectedChapter.Scenes;
+
+        <MatHeadline6>@selectedChapter.Title</MatHeadline6>
+        <MatDivider></MatDivider>
+        <div class="mat-layout-grid">
+            <div class="mat-layout-grid-inner">
+                @foreach (var scene in selectedScenes)
+                {
+                    <div class="mat-layout-grid-cell">
+                        <MatCard class="demo-mat-card">
+                            <MatCardContent>
+                                <div class="demo-mat-card-content">
+                                    <MatHeadline6 Class="demo-mat-card-clean-margin">
+                                        @scene.Title
+                                    </MatHeadline6>
+                                    <MatBody2 Class="demo-mat-card-content demo-mat-card-clean-margin">
+                                        @scene.Description
+                                    </MatBody2>
+                                </div>
+                            </MatCardContent>
+                            <MatCardActions>
+                                <MatButton>
+                                    Do a thing
+                                </MatButton>
+                            </MatCardActions>
+                        </MatCard>
+                    </div>
+                }
+                <div class="mat-layout-grid-cell">
+                    <MatCard Class="demo-mat-card">
+                        <MatCardContent>
+                            <div class="demo-mat-card-content">
+                                <MatHeadline6 Class="demo-mat-card-clean-margin">
+                                    &nbsp;
+                                </MatHeadline6>
+                                <MatBody2 Class="demo-mat-card-content demo-mat-card-clean-margin">
+                                    &nbsp;
+                                </MatBody2>
+                            </div>
+                        </MatCardContent>
+                        <MatCardActionIcons>
+                            <MatIconButton Icon="add_circle"></MatIconButton>
+                        </MatCardActionIcons>
+                    </MatCard>
+                </div>
+            </div>
+        </div>
+    }
+
+</MatContentWrapper>
+
+@code {
+    private Story _story = ExampleGenerator.GenerateSimpleStory();
+    private Guid? _selectedActId = null;
+    private Guid? _selectedChapterId = null;
+
+    public void OnViewChaptersClicked(MouseEventArgs e, Guid id)
+    {
+        _selectedActId = id;
+    }
+
+    public void OnViewScenesClicked(MouseEventArgs e, Guid id)
+    {
+        _selectedChapterId = id;
+    }
+}

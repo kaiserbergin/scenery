@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scenery.Blazor", "Scenery.Blazor\Scenery.Blazor.csproj", "{A15A7816-9EBD-463F-8A40-5B0874947FE1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scenery.Blazor", "Scenery.Blazor\Scenery.Blazor.csproj", "{A15A7816-9EBD-463F-8A40-5B0874947FE1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scenery.StateManagement", "Scenery.StateManagement\Scenery.StateManagement.csproj", "{24CF56EB-4FA5-4909-9D37-F220D673C080}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scenery.StateManagement", "Scenery.StateManagement\Scenery.StateManagement.csproj", "{24CF56EB-4FA5-4909-9D37-F220D673C080}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scenery.Data", "Scenery.Data\Scenery.Data.csproj", "{CF12E666-DDD1-4A48-A2D6-CE8651E241AE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Scenery.Data", "Scenery.Data\Scenery.Data.csproj", "{CF12E666-DDD1-4A48-A2D6-CE8651E241AE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
