@@ -6,5 +6,6 @@ namespace Scenery.Data
     {
         public int SequenceNumber { get; set; }
         public List<Chapter> Chapters { get; set; }
+        public List<Scene> Scenes { get; set; }
     }
 }

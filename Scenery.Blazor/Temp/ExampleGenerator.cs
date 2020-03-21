@@ -9,8 +9,8 @@ namespace Scenery.Blazor.Temp
     public static class ExampleGenerator
     {
         public static Story GenerateSimpleStory() => new Story { Acts = GenerateSimpleActs(), Color = Colors.DEFAULT, Id = Guid.NewGuid(), Title = "My First Scenery", Description = "Really great story" };
-            
-            public static List<Act> GenerateSimpleActs()
+
+        public static List<Act> GenerateSimpleActs()
         {
             var chapters = GenerateSimpleChapters();
             var (act1Chapters, act2Chapters, act3Chapters) = (chapters.Where(x => x.SequenceNumber < 4).ToList(), chapters.Where(x => x.SequenceNumber > 3 && x.SequenceNumber < 7).ToList(), chapters.Where(x => x.SequenceNumber > 6).ToList());
@@ -36,8 +36,30 @@ namespace Scenery.Blazor.Temp
         };
 
         public static List<Scene> GenerateSimpleScenes() => new List<Scene> {
-            GenerateScene(title: "First Scene", sequenceNumber: 1),
-            GenerateScene(title: "Second Scene", sequenceNumber: 2),
+            GenerateScene(
+                title: "First Scene",
+                sequenceNumber: 1,
+                sceneFocus: GenerateSimpleSceneFocus(),
+                essentialElements: new List<EssentialElements> {EssentialElements.CHARACTER_GOAL, EssentialElements.TENSION_ACTION},
+                importantElements: new List<ImportantElements> {ImportantElements.CHARACTER_MOTIVATION, ImportantElements.STEAKS_RAISED, ImportantElements.CONFLICT_EFFECT},
+                bonusElements: new List<BonusElements> {BonusElements.TONE, BonusElements.FORESHADOWING}
+                ),
+            GenerateScene(
+                title: "Second Scene", 
+                sequenceNumber: 2, 
+                sceneFocus: GenerateSimpleSceneFocus(),               
+                essentialElements: new List<EssentialElements> {EssentialElements.CHARACTER_GOAL, EssentialElements.TENSION_ACTION},
+                importantElements: new List<ImportantElements> {ImportantElements.CHARACTER_MOTIVATION, ImportantElements.STEAKS_RAISED, ImportantElements.CONFLICT_EFFECT},
+                bonusElements: new List<BonusElements> {BonusElements.TONE, BonusElements.FORESHADOWING}
+                ),
+        };
+
+        public static SceneFocus GenerateSimpleSceneFocus() => new SceneFocus
+        {
+            CharacterFocus = "Character focus is going to focus on the character!",
+            PlotFocus = "Plot focus centers on what happened.",
+            ThemeFocus = "What themes did we include?",
+            SuspenseFocus = "OMG LIKE WHAT IS GOING TO HAPPEN NOW?"
         };
 
         public static Story GenerateStory(

@@ -1,0 +1,52 @@
+﻿
+<style>
+    .demo-mat-card {
+        max-width: 400px;
+        height: 100%
+    }
+
+    .demo-mat-card-content {
+        padding: 1rem;
+    }
+
+    .demo-mat-card-clean-margin {
+        margin: 0px;
+    }
+</style>
+
+<MatContentWrapper>
+    <div class="mat-layout-grid">
+        <div class="mat-layout-grid-inner">
+
+            @foreach (var scene in Scenes)
+            {
+                <div class="mat-layout-grid-cell">
+                    <SceneComponent Scene="@scene" IsSceneFocusVisible="@true"></SceneComponent>
+                </div>
+            }
+
+            <div class="mat-layout-grid-cell">
+                <MatCard Class="demo-mat-card">
+                    <MatCardContent>
+                        <div class="demo-mat-card-content">
+                            <MatHeadline6 Class="demo-mat-card-clean-margin">
+                                &nbsp;
+                            </MatHeadline6>
+                            <MatBody2 Class="demo-mat-card-content demo-mat-card-clean-margin">
+                                &nbsp;
+                            </MatBody2>
+                        </div>
+                    </MatCardContent>
+                    <MatCardActionIcons>
+                        <MatIconButton Icon="add_circle"></MatIconButton>
+                    </MatCardActionIcons>
+                </MatCard>
+            </div>
+        </div>
+    </div>
+</MatContentWrapper>
+
+@code {
+    [Parameter]
+    public List<Scene> Scenes { get; set; }
+}

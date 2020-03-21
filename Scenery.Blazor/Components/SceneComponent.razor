@@ -1,0 +1,112 @@
+﻿<style>
+    .demo-mat-card {
+        height: 100%
+    }
+
+    .demo-mat-card-content {
+        padding: 1rem;
+    }
+
+    .demo-mat-card-clean-margin {
+        margin: 0px;
+    }
+
+    .scene-element-list {
+        list-style-type: none;
+        clear: both
+    }
+
+        .scene-element-list li {
+            float: left;
+            padding: 1rem;
+        }
+</style>
+
+<MatCard class="demo-mat-card">
+    <MatCardContent>
+        <div class="demo-mat-card-content">
+            <MatHeadline5 Class="demo-mat-card-clean-margin">
+                @Scene.Title
+            </MatHeadline5>
+            <MatBody2 Class="demo-mat-card-content demo-mat-card-clean-margin">
+                <Markdown Content="@Scene.Description"></Markdown>
+
+                @if (FunctionIsSceneFocusVisible())
+                {
+                    <MatHeadline6>Plot Focus</MatHeadline6>
+                    <Markdown Content="@Scene.SceneFocus?.PlotFocus"></Markdown>
+                    <MatHeadline6>Character Focus</MatHeadline6>
+                    <Markdown Content="@Scene.SceneFocus?.CharacterFocus"></Markdown>
+                    <MatHeadline6>Theme Focus</MatHeadline6>
+                    <Markdown Content="@Scene.SceneFocus?.ThemeFocus"></Markdown>
+                    <MatHeadline6>Suspense Focus</MatHeadline6>
+                    <Markdown Content="@Scene.SceneFocus?.SuspenseFocus"></Markdown>
+                }
+
+                <MatHeadline6>Essential Elements</MatHeadline6>
+                <div>
+                    @if (Scene.EssentialElements != null)
+                    {
+                        foreach (var element in Scene.EssentialElements)
+                        {
+                            <span>@element.ToString("g")</span>
+                        }
+                    }
+                </div>
+
+                <MatHeadline6>Imporant Elements</MatHeadline6>
+                <div>
+                    @if (Scene.ImportantElements != null)
+                    {
+                        foreach (var element in Scene.ImportantElements)
+                        {
+                            <span>@element.ToString("g")</span>
+                        }
+                    }
+                </div>
+
+                <MatHeadline6>Bonus Elements</MatHeadline6>
+                <div>
+                    @if (Scene.BonusElements != null)
+                    {
+                        foreach (var element in Scene.BonusElements)
+                        {
+                            <span>@element.ToString("g")</span>
+                        }
+                    }
+                </div>
+
+            </MatBody2>
+        </div>
+    </MatCardContent>
+    <MatCardActions>
+        <MatButton>
+            Do a thing
+        </MatButton>
+    </MatCardActions>
+</MatCard>
+
+@functions
+{
+    private bool FunctionIsSceneFocusVisible() =>
+        !IsSceneFocusVisible.HasValue || IsSceneFocusVisible.Value;
+}
+
+@code {
+
+    [Parameter]
+    public Scene Scene { get; set; }
+
+    [Parameter]
+    public bool? IsSceneFocusVisible { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        if (!IsSceneFocusVisible.HasValue)
+        {
+            IsSceneFocusVisible = true;
+        }
+
+        base.OnInitialized();
+    }
+}

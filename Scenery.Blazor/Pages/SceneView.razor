@@ -1,0 +1,20 @@
+﻿@page "/scene-view"
+
+<h3>SceneView</h3>
+
+<SceneList Scenes="@Scenes">
+</SceneList>
+
+@code {
+
+    public List<Scene> Scenes { get; set; }
+
+    protected override void OnInitialized()
+    {
+        Scenes = ExampleGenerator.GenerateSimpleScenes();
+
+        base.OnInitialized();
+    }
+
+
+}
