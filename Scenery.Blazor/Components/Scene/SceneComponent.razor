@@ -1,4 +1,6 @@
-﻿<style>
+﻿@namespace Scenery.Blazor.Components.Scene
+
+<style>
     .demo-mat-card {
         height: 100%
     }
@@ -33,14 +35,7 @@
 
                 @if (FunctionIsSceneFocusVisible())
                 {
-                    <MatHeadline6>Plot Focus</MatHeadline6>
-                    <Markdown Content="@Scene.SceneFocus?.PlotFocus"></Markdown>
-                    <MatHeadline6>Character Focus</MatHeadline6>
-                    <Markdown Content="@Scene.SceneFocus?.CharacterFocus"></Markdown>
-                    <MatHeadline6>Theme Focus</MatHeadline6>
-                    <Markdown Content="@Scene.SceneFocus?.ThemeFocus"></Markdown>
-                    <MatHeadline6>Suspense Focus</MatHeadline6>
-                    <Markdown Content="@Scene.SceneFocus?.SuspenseFocus"></Markdown>
+                    <SceneFocusComponent SceneFocus="@Scene?.SceneFocus"></SceneFocusComponent>
                 }
 
                 <MatHeadline6>Essential Elements</MatHeadline6>
@@ -49,7 +44,9 @@
                     {
                         foreach (var element in Scene.EssentialElements)
                         {
-                            <span>@element.ToString("g")</span>
+                            <span>
+                                <SceneElementParser ElementEnum="@element"></SceneElementParser>
+                            </span>
                         }
                     }
                 </div>
@@ -60,7 +57,9 @@
                     {
                         foreach (var element in Scene.ImportantElements)
                         {
-                            <span>@element.ToString("g")</span>
+                            <span>
+                                <SceneElementParser ElementEnum="@element"></SceneElementParser>
+                            </span>
                         }
                     }
                 </div>
@@ -71,7 +70,9 @@
                     {
                         foreach (var element in Scene.BonusElements)
                         {
-                            <span>@element.ToString("g")</span>
+                            <span>
+                                <SceneElementParser ElementEnum="@element"></SceneElementParser>
+                            </span>
                         }
                     }
                 </div>

@@ -1,0 +1,89 @@
+﻿@namespace Scenery.Blazor.Components.Scene
+@using Scenery.Data.Enumerations
+
+@GetUIFriendlyDescription(ElementEnum)
+
+@functions {
+    [Parameter]
+    public object ElementEnum { get; set; }
+
+    private string GetUIFriendlyDescription(object enumValue)
+    {
+        if (enumValue == null) return string.Empty;
+
+        var type = enumValue.GetType();
+
+        if ( typeof(EssentialElements) == type)
+        {
+            return PraseEssentialElements((EssentialElements)enumValue);
+        }
+        else if (typeof(ImportantElements) == type)
+        {
+            return ParseImportantElements((ImportantElements)enumValue);
+        }
+        else if (typeof(BonusElements) == type)
+        {
+            return ParseBonusElements((BonusElements)enumValue);
+        }
+
+        return string.Empty;
+    }
+
+    private string PraseEssentialElements(EssentialElements essentialElement)
+    {
+        switch(essentialElement)
+        {
+            case EssentialElements.PLOT_POINT:
+                return "a plot point";
+            case EssentialElements.CHARACTER_GOAL:
+                return "a character's goal";
+            case EssentialElements.PLOT_ACTION:
+                return "action to advance the plot";
+            case EssentialElements.TENSION_ACTION:
+                return "action to increase the tension";
+            default:
+                return string.Empty;
+        }
+    }
+
+    private string ParseImportantElements(ImportantElements importantElement)
+    {
+        switch(importantElement)
+        {
+            case ImportantElements.CHARACTER_DEVELOPMENT:
+                return "character development";
+            case ImportantElements.CONFLICT_CAUSE:
+                return "a cause of character conflict";
+            case ImportantElements.CONFLICT_EFFECT:
+                return "an effect of character conflict";
+            case ImportantElements.STEAKS_RAISED:
+                return "how stakes are raised";
+            case ImportantElements.STEAKS_REINFORCED:
+                return "a reinforcement of the stakes";
+            case ImportantElements.CHARACTER_MOTIVATION:
+                return "character motivation";
+            default:
+                return string.Empty;
+        }
+    }
+
+    private string ParseBonusElements(BonusElements bonusElement)
+    {
+        switch(bonusElement)
+        {
+            case BonusElements.CHARACTER_BACKSTORY:
+                return "character backstory";
+            case BonusElements.WORLD_BUILDING:
+                return "world building";
+            case BonusElements.TONE:
+                return "the story's tone or mood";
+            case BonusElements.THEME:
+                return "story theme";
+            case BonusElements.FORESHADOWING:
+                return "foreshadowing";
+            default:
+                return string.Empty;
+        }
+    }
+
+}

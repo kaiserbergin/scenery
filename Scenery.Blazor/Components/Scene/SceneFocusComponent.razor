@@ -1,0 +1,111 @@
+﻿@namespace Scenery.Blazor.Components.Scene
+
+<MatHeadline6>Plot Focus</MatHeadline6>
+@if (_editState == CurrentlyEditedFocus.PLOT)
+{
+    <MatTextField @bind-Value="@CurrentEdits" TextArea="true"></MatTextField>
+    <MatIconButton Icon="close" OnClick="@(e => UpdatedEditedFocus(e, CurrentlyEditedFocus.NONE))"></MatIconButton>
+    <MatIconButton Icon="check" OnClick="@SaveEdits"></MatIconButton>
+}
+else
+{
+    <Markdown Content="@SceneFocus?.PlotFocus"></Markdown>
+    <MatIconButton Icon="edit" OnClick="@(e => UpdatedEditedFocus(e, CurrentlyEditedFocus.PLOT))"></MatIconButton>
+}
+
+
+<MatHeadline6>Character Focus</MatHeadline6>
+@if (_editState == CurrentlyEditedFocus.CHARACTER)
+{
+    <MatTextField @bind-Value="@CurrentEdits" TextArea="true"></MatTextField>
+    <MatIconButton Icon="close" OnClick="@(e => UpdatedEditedFocus(e, CurrentlyEditedFocus.NONE))"></MatIconButton>
+    <MatIconButton Icon="check" OnClick="@SaveEdits"></MatIconButton>
+}
+else
+{
+    <Markdown Content="@SceneFocus?.CharacterFocus"></Markdown>
+    <MatIconButton Icon="edit" OnClick="@(e => UpdatedEditedFocus(e, CurrentlyEditedFocus.CHARACTER))"></MatIconButton>
+}
+
+<MatHeadline6>Theme Focus</MatHeadline6>
+@if (_editState == CurrentlyEditedFocus.THEME)
+{
+    <MatTextField @bind-Value="@CurrentEdits" TextArea="true"></MatTextField>
+    <MatIconButton Icon="close" OnClick="@(e => UpdatedEditedFocus(e, CurrentlyEditedFocus.NONE))"></MatIconButton>
+    <MatIconButton Icon="check" OnClick="@SaveEdits"></MatIconButton>
+}
+else
+{
+    <Markdown Content="@SceneFocus?.ThemeFocus"></Markdown>
+    <MatIconButton Icon="edit" OnClick="@(e => UpdatedEditedFocus(e, CurrentlyEditedFocus.THEME))"></MatIconButton>
+}
+
+<MatHeadline6>Suspense Focus</MatHeadline6>
+@if (_editState == CurrentlyEditedFocus.SUSPENSE)
+{
+    <MatTextField @bind-Value="@CurrentEdits" TextArea="true"></MatTextField>
+    <MatIconButton Icon="close" OnClick="@(e => UpdatedEditedFocus(e, CurrentlyEditedFocus.NONE))"></MatIconButton>
+    <MatIconButton Icon="check" OnClick="@SaveEdits"></MatIconButton>
+}
+else
+{
+    <Markdown Content="@SceneFocus?.SuspenseFocus"></Markdown>
+    <MatIconButton Icon="edit" OnClick="@(e => UpdatedEditedFocus(e, CurrentlyEditedFocus.SUSPENSE))"></MatIconButton>
+}
+
+@code {
+
+    [Parameter]
+    public SceneFocus SceneFocus { get; set; }
+
+    public string CurrentEdits { get; set; }
+
+    public enum CurrentlyEditedFocus
+    {
+        NONE,
+        PLOT,
+        CHARACTER,
+        THEME,
+        SUSPENSE
+    }
+
+    private CurrentlyEditedFocus _editState = CurrentlyEditedFocus.NONE;
+
+    public void UpdatedEditedFocus(MouseEventArgs e, CurrentlyEditedFocus focus)
+    {
+        _editState = focus;
+
+        CurrentEdits = focus switch
+        {
+            CurrentlyEditedFocus.PLOT => SceneFocus.PlotFocus,
+            CurrentlyEditedFocus.CHARACTER => SceneFocus.CharacterFocus,
+            CurrentlyEditedFocus.THEME => SceneFocus.ThemeFocus,
+            CurrentlyEditedFocus.SUSPENSE => SceneFocus.SuspenseFocus,
+            _ => string.Empty
+        };
+    }
+
+    public void SaveEdits(MouseEventArgs e)
+    {
+        if (_editState == CurrentlyEditedFocus.PLOT) SceneFocus.PlotFocus = CurrentEdits;
+        else if (_editState == CurrentlyEditedFocus.CHARACTER) SceneFocus.CharacterFocus = CurrentEdits;
+        else if (_editState == CurrentlyEditedFocus.THEME) SceneFocus.ThemeFocus = CurrentEdits;
+        else if (_editState == CurrentlyEditedFocus.SUSPENSE) SceneFocus.SuspenseFocus = CurrentEdits;
+
+        _editState = CurrentlyEditedFocus.NONE;
+    }
+
+    public void UndoEdits(MouseEventArgs e)
+    {
+        CurrentEdits = _editState switch
+        {
+            CurrentlyEditedFocus.PLOT => SceneFocus.PlotFocus,
+            CurrentlyEditedFocus.CHARACTER => SceneFocus.CharacterFocus,
+            CurrentlyEditedFocus.THEME => SceneFocus.ThemeFocus,
+            CurrentlyEditedFocus.SUSPENSE => SceneFocus.SuspenseFocus,
+            _ => string.Empty
+        };
+
+        _editState = CurrentlyEditedFocus.NONE;
+    }
+}
